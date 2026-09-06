@@ -1,1 +1,391 @@
-Hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GuessX | Number Guessing Game</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
+    <header class="topbar">
+
+        <div class="logo">
+            <span class="logo-icon">🎯</span>
+            <span>GUESS<span class="accent">X</span></span>
+        </div>
+
+        <button class="leaderboard-btn" onclick="openLeaderboard()">
+            🏆 Leaderboard
+        </button>
+
+    </header>
+
+
+    <main>
+
+        <!-- GAME CARD -->
+
+        <section class="game-card">
+
+            <div class="game-header">
+
+                <div>
+                    <p class="mini-title">NUMBER CHALLENGE</p>
+
+                    <h1>
+                        Guess The
+                        <span>Secret Number</span>
+                    </h1>
+
+                    <p class="subtitle">
+                        Can you find the hidden number before your attempts run out?
+                    </p>
+                </div>
+
+                <div class="target-box">
+
+                    <span>RANGE</span>
+
+                    <strong id="rangeDisplay">1 - 100</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Difficulty -->
+
+            <div class="difficulty">
+
+                <p>SELECT DIFFICULTY</p>
+
+                <div class="difficulty-buttons">
+
+                    <button class="difficulty-btn active"
+                        onclick="setDifficulty('easy', this)">
+                        🟢 Easy
+                    </button>
+
+                    <button class="difficulty-btn"
+                        onclick="setDifficulty('medium', this)">
+                        🟡 Medium
+                    </button>
+
+                    <button class="difficulty-btn"
+                        onclick="setDifficulty('hard', this)">
+                        🔴 Hard
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Stats -->
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <span>ATTEMPTS</span>
+
+                    <strong id="attempts">10</strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>TIME</span>
+
+                    <strong id="timer">00:00</strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>STREAK</span>
+
+                    <strong id="streak">0 🔥</strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>SCORE</span>
+
+                    <strong id="score">0</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Progress -->
+
+            <div class="progress-container">
+
+                <div class="progress-info">
+
+                    <span>Attempts Remaining</span>
+
+                    <span id="attemptText">10 / 10</span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div id="progress"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Guess Area -->
+
+            <div class="guess-area">
+
+                <label for="guessInput">
+                    ENTER YOUR GUESS
+                </label>
+
+                <div class="input-wrapper">
+
+                    <input
+                        type="number"
+                        id="guessInput"
+                        placeholder="?"
+                        autocomplete="off"
+                    >
+
+                    <button id="guessBtn" onclick="makeGuess()">
+                        GUESS
+                        <span>➜</span>
+                    </button>
+
+                </div>
+
+                <p id="message" class="message">
+                    Enter a number to begin your challenge!
+                </p>
+
+            </div>
+
+
+            <!-- Hint -->
+
+            <div class="hint-box">
+
+                <div class="hint-icon">💡</div>
+
+                <div>
+                    <strong>SMART HINT</strong>
+                    <p id="hint">
+                        Your first hint will appear here.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- History -->
+
+            <div class="history-section">
+
+                <div class="history-title">
+                    <span>GUESS HISTORY</span>
+                    <span id="guessCount">0 guesses</span>
+                </div>
+
+                <div id="history" class="history">
+                    <div class="empty-history">
+                        Your guesses will appear here...
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Controls -->
+
+            <div class="controls">
+
+                <button class="secondary-btn" onclick="newGame()">
+                    🔄 New Game
+                </button>
+
+                <button class="secondary-btn" onclick="showHint()">
+                    💡 Get Hint
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- How To Play -->
+
+        <section class="info-section">
+
+            <div class="info-card">
+
+                <span class="info-number">01</span>
+
+                <h3>Choose Difficulty</h3>
+
+                <p>
+                    Select Easy, Medium or Hard to change the challenge.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span class="info-number">02</span>
+
+                <h3>Make Your Guess</h3>
+
+                <p>
+                    Enter a number and use the smart hints to get closer.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span class="info-number">03</span>
+
+                <h3>Beat The Score</h3>
+
+                <p>
+                    Guess faster with fewer attempts to earn a higher score.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- LEADERBOARD MODAL -->
+
+    <div id="leaderboardModal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close-btn" onclick="closeLeaderboard()">
+                ×
+            </button>
+
+            <div class="modal-title">
+                <span>🏆</span>
+                <h2>LEADERBOARD</h2>
+                <p>Top GuessX players</p>
+            </div>
+
+
+            <div class="podium" id="podium"></div>
+
+
+            <div id="leaderboardList" class="leaderboard-list"></div>
+
+
+            <button class="clear-btn" onclick="clearLeaderboard()">
+                🗑 Clear Leaderboard
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- WIN MODAL -->
+
+    <div id="winModal" class="modal">
+
+        <div class="win-card">
+
+            <div class="celebration">
+                🎉
+            </div>
+
+            <h2 id="resultTitle">
+                YOU GOT IT!
+            </h2>
+
+            <p id="resultMessage">
+                Incredible guessing!
+            </p>
+
+            <div class="result-stats">
+
+                <div>
+                    <span>SCORE</span>
+                    <strong id="finalScore">0</strong>
+                </div>
+
+                <div>
+                    <span>ATTEMPTS</span>
+                    <strong id="finalAttempts">0</strong>
+                </div>
+
+                <div>
+                    <span>TIME</span>
+                    <strong id="finalTime">00:00</strong>
+                </div>
+
+            </div>
+
+
+            <input
+                id="playerName"
+                type="text"
+                maxlength="15"
+                placeholder="Enter your name"
+            >
+
+            <button class="play-again" onclick="saveScore()">
+                🏆 Save Score
+            </button>
+
+            <button class="close-result" onclick="closeWinModal()">
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        <p>
+            GUESS<span>X</span> • Challenge your brain • Beat the leaderboard
+        </p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
